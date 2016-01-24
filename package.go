@@ -3,7 +3,9 @@ package gogen
 import (
 	"fmt"
 	"go/ast"
+	"go/format"
 	"go/token"
+	"io"
 )
 
 type Package struct {
@@ -113,4 +115,9 @@ func (me *Package) Ast() ast.Node {
 		},
 		Decls: append(importDecls, funcDecls...),
 	}
+}
+
+func (me *Package) WriteTo(w io.Writer) error {
+	fset := token.NewFileSet()
+	return format.Node(w, fset, me.Ast())
 }

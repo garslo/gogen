@@ -12,8 +12,6 @@ shows the state of things:
 package main
 
 import (
-	"go/format"
-	"go/token"
 	"os"
 	. "github.com/garslo/gogen"
 )
@@ -21,39 +19,33 @@ import (
 func main() {
 	pkg := Package{
 		Name: "foo",
-		Imports: Imports{
-			Import{"os"},
-		},
-		Functions: Functions{
-			Function{
-				Name: "main",
+	}
+	pkg.Import("os").
+		Function(Function{
+		Name: "main",
+		Body: []Statement{
+			Range{
+				Key:        Var{"i"},
+				Value:      Var{"x"},
+				RangeValue: Var{"xs"},
 				Body: []Statement{
-					Range{
-						Key:        Var{"i"},
-						Value:      Var{"x"},
-						RangeValue: Var{"xs"},
-						Body: []Statement{
-							CallFunction{
-								Dotted{Var{"os"}, "Exit"},
-								[]Expression{Var{"1"}},
-							},
-						},
-					},
-					For{
-						Init:      DeclareAndAssign{Var{"i"}, Var{"0"}},
-						Condition: Var{"i"},
-						Post:      Assign{Var{"i"}, Var{"0"}},
-						Body: []Statement{
-							DeclareAndAssign{Var{"j"}, Var{"i"}},
-						},
+					CallFunction{
+						Dotted{Var{"os"}, "Exit"},
+						[]Expression{Var{"1"}},
 					},
 				},
 			},
+			For{
+				Init:      DeclareAndAssign{Var{"i"}, Var{"0"}},
+				Condition: Var{"i"},
+				Post:      Assign{Var{"i"}, Var{"0"}},
+				Body: []Statement{
+					DeclareAndAssign{Var{"j"}, Var{"i"}},
+				},
+			},
 		},
-	}
-
-	fset := token.NewFileSet()
-	format.Node(os.Stdout, fset, pkg.Ast())
+	})
+	pkg.WriteTo(os.Stdout)
 }
 ```
 

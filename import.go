@@ -1,7 +1,28 @@
 package gogen
 
+import (
+	"fmt"
+	"go/ast"
+	"go/token"
+)
+
 type Import struct {
 	Name string
+}
+
+func (me Import) Ast() ast.Decl {
+	return &ast.GenDecl{
+		Tok: token.IMPORT,
+		Specs: []ast.Spec{
+			&ast.ImportSpec{
+				Path: &ast.BasicLit{
+					Kind:  token.STRING,
+					Value: fmt.Sprintf(`"%s"`, me.Name),
+				},
+			},
+		},
+	}
+
 }
 
 type Imports []Import

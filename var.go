@@ -34,3 +34,7 @@ func Int(value int) Var {
 func Pkg(value string) Var {
 	return Var{value}
 }
+
+func Name(value string) Var {
+	return Var{value}
+}

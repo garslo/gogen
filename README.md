@@ -10,7 +10,7 @@ See the
 directory for examples and a build/run script.
 
 ```sh
-$ ./$ ./run-example.sh for_loop.go
+$ ./run-example.sh for_loop.go
 CODE:
 package main
 

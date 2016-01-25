@@ -26,3 +26,14 @@ func (me Decrement) Ast() ast.Stmt {
 		Tok: token.DEC,
 	}
 }
+
+type Not struct {
+	Value Expression
+}
+
+func (me Not) Ast() ast.Expr {
+	return &ast.UnaryExpr{
+		X:  me.Value.Ast(),
+		Op: token.NOT,
+	}
+}

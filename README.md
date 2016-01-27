@@ -5,9 +5,47 @@ interesting code generation. Currently very rough.
 
 # Examples
 
+## Hello World
+```go
+package main
+
+import (
+	"os"
+	. "github.com/garslo/gogen"
+)
+
+func main() {
+	pkg := Package{Name: "main"}
+	pkg.Declare(Import{"fmt"})
+	pkg.Declare(Function{
+		Name: "main",
+		Body: []Statement{
+			CallFunction{
+				Func:   Dotted{Var{"fmt"}, "Println"},
+				Params: []Expression{Var{`"Hello World!"`}},
+			},
+		},
+	})
+	pkg.WriteTo(os.Stdout)
+}
+```
+
+Output:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello World!")
+}
+```
+
+## More
 See the
 [examples](https://github.com/garslo/gogen/tree/master/examples)
-directory for examples and a build/run script.
+directory for more examples and a build/run script.
 
 ```sh
 $ ./run-example.sh for_loop.go

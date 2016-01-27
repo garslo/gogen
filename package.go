@@ -11,6 +11,7 @@ type Package struct {
 	Name      string
 	Imports   Imports
 	Functions Functions
+	Structs   Structs
 }
 
 // TODO: make this take an Import{}. It's weird right now.
@@ -24,20 +25,30 @@ func (me *Package) Function(fn Function) *Package {
 	return me
 }
 
+func (me *Package) Struct(s Struct) *Package {
+	me.Structs.Add(s)
+	return me
+}
+
 func (me *Package) Ast() ast.Node {
-	importDecls := make([]ast.Decl, len(me.Imports))
-	for i, imp := range me.Imports {
-		importDecls[i] = imp.Ast()
+	decls := []ast.Decl{}
+	for _, imp := range me.Imports {
+		decls = append(decls, imp.Ast())
 	}
-	funcDecls := make([]ast.Decl, len(me.Functions))
-	for i, fn := range me.Functions {
-		funcDecls[i] = fn.Ast()
+	for _, st := range me.Structs {
+		decls = append(decls, st.Ast())
+		for _, method := range st.Methods {
+			decls = append(decls, method.Ast())
+		}
+	}
+	for _, fn := range me.Functions {
+		decls = append(decls, fn.Ast())
 	}
 	return &ast.File{
 		Name: &ast.Ident{
 			Name: me.Name,
 		},
-		Decls: append(importDecls, funcDecls...),
+		Decls: decls,
 	}
 }
 

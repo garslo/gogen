@@ -2,7 +2,35 @@ package gogen
 
 import "go/ast"
 
+type Receiver struct {
+	Name string
+	Type Expression
+}
+
+func (me Receiver) Ast() *ast.FieldList {
+	if me.Type == nil {
+		return nil
+	}
+	return &ast.FieldList{
+		List: []*ast.Field{
+			&ast.Field{
+				Names: []*ast.Ident{
+					&ast.Ident{
+						Name: me.Name,
+						Obj: &ast.Object{
+							Kind: ast.Var,
+							Name: me.Name,
+						},
+					},
+				},
+				Type: me.Type.Ast(),
+			},
+		},
+	}
+}
+
 type Function struct {
+	Receiver    Receiver
 	Name        string
 	ReturnTypes Types
 	Parameters  Types
@@ -57,6 +85,7 @@ func (me Function) Ast() ast.Decl {
 		stmts[j] = stmt.Ast()
 	}
 	return &ast.FuncDecl{
+		Recv: me.Receiver.Ast(),
 		Name: &ast.Ident{
 			Name: me.Name,
 			Obj: &ast.Object{
@@ -76,6 +105,11 @@ func (me Function) Ast() ast.Decl {
 			List: stmts,
 		},
 	}
+}
+
+// Totally unhiegenic
+func (me *Function) UpdateReceiver(receiver Receiver) {
+	me.Receiver = receiver
 }
 
 type Functions []Function

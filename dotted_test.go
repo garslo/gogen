@@ -2,7 +2,8 @@ package gogen_test
 
 import (
 	"go/ast"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -10,16 +11,16 @@ import (
 
 var _ = Describe("Dotted", func() {
 	var (
-		dot      Dotted
-		receiver Var
+		dot      g.Dotted
+		receiver g.Var
 		name     string
 		tree     ast.Expr
 	)
 
 	BeforeEach(func() {
-		receiver = Var{"receiver"}
+		receiver = g.Var{"receiver"}
 		name = "somename"
-		dot = Dotted{receiver, name}
+		dot = g.Dotted{receiver, name}
 		tree = dot.Ast()
 	})
 

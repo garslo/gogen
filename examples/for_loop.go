@@ -10,9 +10,9 @@ func main() {
 		Name: "main",
 	}
 	i := Name("i")
-	pkg.Import("os").
-		Import("fmt").
-		Function(Function{
+	pkg.Declare(Import{"os"}).
+		Declare(Import{"fmt"}).
+		Declare(Function{
 		Name: "main",
 		Body: []Statement{
 			Declare{i.Name, "int"},

@@ -26,9 +26,9 @@ func main() {
 	}
 	toPrint := Var{"y"}
 	pkg := Package{Name: "main"}
-	pkg.Import(Fmt)
-	pkg.Function(fooFunc)
-	pkg.Function(Function{
+	pkg.Declare(Import{Fmt})
+	pkg.Declare(fooFunc)
+	pkg.Declare(Function{
 		Name: "main",
 		Body: []Statement{
 			DeclareAndAssign{

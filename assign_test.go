@@ -3,7 +3,8 @@ package gogen_test
 import (
 	"go/ast"
 	"go/token"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -11,16 +12,16 @@ import (
 
 var _ = Describe("Assign", func() {
 	var (
-		assign Assign
-		lhs    Var
-		rhs    Var
+		assign g.Assign
+		lhs    g.Var
+		rhs    g.Var
 		tree   ast.Stmt
 	)
 
 	BeforeEach(func() {
-		lhs = Var{"x"}
-		rhs = Var{"1"}
-		assign = Assign{lhs, rhs}
+		lhs = g.Var{"x"}
+		rhs = g.Var{"1"}
+		assign = g.Assign{lhs, rhs}
 		tree = assign.Ast()
 	})
 

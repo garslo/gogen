@@ -2,7 +2,8 @@ package gogen_test
 
 import (
 	"go/ast"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -10,12 +11,12 @@ import (
 
 var _ = Describe("For", func() {
 	var (
-		forStatement For
+		forStatement g.For
 		tree         ast.Stmt
 	)
 
 	BeforeEach(func() {
-		forStatement = For{}
+		forStatement = g.For{}
 		tree = forStatement.Ast()
 	})
 

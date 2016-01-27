@@ -1,7 +1,7 @@
 package gogen_test
 
 import (
-	. "github.com/garslo/gogen"
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -9,16 +9,20 @@ import (
 
 var _ = Describe("Package", func() {
 	var (
-		pkg Package
+		pkg g.Package
 	)
 
+	BeforeEach(func() {
+		pkg = g.Package{}
+	})
+
 	It("should add functions", func() {
-		pkg.Function(Function{})
-		Expect(pkg.Functions).To(HaveLen(1))
+		pkg.Declare(g.Function{})
+		Expect(pkg.Declarations).To(HaveLen(1))
 	})
 
 	It("should add imports", func() {
-		pkg.Import("os")
-		Expect(pkg.Imports).To(HaveLen(1))
+		pkg.Declare(g.Import{"os"})
+		Expect(pkg.Declarations).To(HaveLen(1))
 	})
 })

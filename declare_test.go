@@ -3,7 +3,8 @@ package gogen_test
 import (
 	"go/ast"
 	"go/token"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -11,7 +12,7 @@ import (
 
 var _ = Describe("Declare", func() {
 	var (
-		declare  Declare
+		declare  g.Declare
 		name     string
 		typeName string
 		tree     ast.Stmt
@@ -20,7 +21,7 @@ var _ = Describe("Declare", func() {
 	BeforeEach(func() {
 		name = "x"
 		typeName = "int"
-		declare = Declare{name, typeName}
+		declare = g.Declare{name, typeName}
 		tree = declare.Ast()
 	})
 

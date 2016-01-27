@@ -8,41 +8,19 @@ import (
 )
 
 type Package struct {
-	Name      string
-	Imports   Imports
-	Functions Functions
-	Structs   Structs
+	Name         string
+	Declarations []Declaration
 }
 
-// TODO: make this take an Import{}. It's weird right now.
-func (me *Package) Import(pkg string) *Package {
-	me.Imports.Add(Import{pkg})
-	return me
-}
-
-func (me *Package) Function(fn Function) *Package {
-	me.Functions.Add(fn)
-	return me
-}
-
-func (me *Package) Struct(s Struct) *Package {
-	me.Structs.Add(s)
+func (me *Package) Declare(decl Declaration) *Package {
+	me.Declarations = append(me.Declarations, decl)
 	return me
 }
 
 func (me *Package) Ast() ast.Node {
-	decls := []ast.Decl{}
-	for _, imp := range me.Imports {
-		decls = append(decls, imp.Ast())
-	}
-	for _, st := range me.Structs {
-		decls = append(decls, st.Ast())
-		for _, method := range st.Methods {
-			decls = append(decls, method.Ast())
-		}
-	}
-	for _, fn := range me.Functions {
-		decls = append(decls, fn.Ast())
+	decls := make([]ast.Decl, len(me.Declarations))
+	for i, decl := range me.Declarations {
+		decls[i] = decl.Ast()
 	}
 	return &ast.File{
 		Name: &ast.Ident{

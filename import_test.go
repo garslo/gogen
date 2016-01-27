@@ -3,7 +3,8 @@ package gogen_test
 import (
 	"go/ast"
 	"go/token"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -11,14 +12,14 @@ import (
 
 var _ = Describe("Import", func() {
 	var (
-		imp  Import
+		imp  g.Import
 		name string
 		tree ast.Decl
 	)
 
 	BeforeEach(func() {
 		name = "someimport"
-		imp = Import{name}
+		imp = g.Import{name}
 		tree = imp.Ast()
 	})
 

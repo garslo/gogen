@@ -2,7 +2,8 @@ package gogen_test
 
 import (
 	"go/ast"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -11,12 +12,12 @@ import (
 var _ = Describe("Var", func() {
 	var (
 		name string
-		v    Var
+		v    g.Var
 		tree ast.Expr
 	)
 
 	BeforeEach(func() {
-		v = Var{name}
+		v = g.Var{name}
 		tree = v.Ast()
 	})
 

@@ -2,7 +2,8 @@ package gogen_test
 
 import (
 	"go/ast"
-	. "github.com/garslo/gogen"
+
+	g "github.com/garslo/gogen"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -10,18 +11,18 @@ import (
 
 var _ = Describe("CallFunction", func() {
 	var (
-		fnCall CallFunction
-		params []Expression
-		name   Var
+		fnCall g.CallFunction
+		params []g.Expression
+		name   g.Var
 		tree   ast.Stmt
 	)
 
 	BeforeEach(func() {
-		name = Var{"fooFunction"}
-		params = []Expression{
-			Var{"x"}, Var{"y"},
+		name = g.Var{"fooFunction"}
+		params = []g.Expression{
+			g.Var{"x"}, g.Var{"y"},
 		}
-		fnCall = CallFunction{name, params}
+		fnCall = g.CallFunction{name, params}
 		tree = fnCall.Ast()
 	})
 

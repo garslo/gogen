@@ -7,8 +7,8 @@ import (
 
 func main() {
 	pkg := Package{Name: "main"}
-	pkg.Import("fmt")
-	pkg.Function(Function{
+	pkg.Declare(Import{"fmt"})
+	pkg.Declare(Function{
 		Name: "main",
 		Body: []Statement{
 			CallFunction{

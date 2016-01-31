@@ -13,10 +13,10 @@ type Range struct {
 	DoNotDeclare bool
 }
 
-func (me Range) Ast() ast.Stmt {
+func (me Range) Statement() ast.Stmt {
 	body := make([]ast.Stmt, len(me.Body))
 	for i, bodyPart := range me.Body {
-		body[i] = bodyPart.Ast()
+		body[i] = bodyPart.Statement()
 	}
 	var (
 		key   Expression = Var{"_"}
@@ -35,9 +35,9 @@ func (me Range) Ast() ast.Stmt {
 	}
 
 	return &ast.RangeStmt{
-		Key:   key.Ast(),
-		Value: value.Ast(),
-		X:     me.RangeValue.Ast(),
+		Key:   key.Expression(),
+		Value: value.Expression(),
+		X:     me.RangeValue.Expression(),
 		Tok:   tok,
 		Body: &ast.BlockStmt{
 			List: body,

@@ -10,7 +10,7 @@ type Var struct {
 	Name string
 }
 
-func (me Var) Ast() ast.Expr {
+func (me Var) Expression() ast.Expr {
 	return &ast.Ident{
 		Name: me.Name,
 		Obj: &ast.Object{
@@ -23,8 +23,12 @@ func (me Var) Ast() ast.Expr {
 // Things that are like Var but either deserve their own name, or have
 // slightly different behaviors
 
-func String(value string) Var {
-	return Var{fmt.Sprintf(`"%s"`, value)}
+type String struct {
+	Value string
+}
+
+func (me String) Expression() ast.Expr {
+	return Var{fmt.Sprintf(`"%s"`, me.Value)}.Expression()
 }
 
 func Int(value int) Var {

@@ -7,15 +7,31 @@ type CallFunction struct {
 	Params []Expression
 }
 
-func (me CallFunction) Ast() ast.Stmt {
+func (me CallFunction) Statement() ast.Stmt {
+	return &ast.ExprStmt{
+		X: me.Expression(),
+	}
+}
+
+func (me CallFunction) Expression() ast.Expr {
 	params := make([]ast.Expr, len(me.Params))
 	for i, param := range me.Params {
-		params[i] = param.Ast()
+		params[i] = param.Expression()
 	}
-	return &ast.ExprStmt{
-		X: &ast.CallExpr{
-			Fun:  me.Func.Ast(),
-			Args: params,
-		},
+	return &ast.CallExpr{
+		Fun:  me.Func.Expression(),
+		Args: params,
+	}
+}
+
+// TODO: Bad name, change it
+type Functor struct {
+	Func Expression
+}
+
+func (me Functor) Call(params ...Expression) CallFunction {
+	return CallFunction{
+		Func:   me.Func,
+		Params: params,
 	}
 }

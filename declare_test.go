@@ -22,7 +22,7 @@ var _ = Describe("Declare", func() {
 		name = "x"
 		typeName = "int"
 		declare = g.Declare{name, typeName}
-		tree = declare.Ast()
+		tree = declare.Statement()
 	})
 
 	Context("Ast()", func() {

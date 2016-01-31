@@ -23,7 +23,7 @@ var _ = Describe("CallFunction", func() {
 			g.Var{"x"}, g.Var{"y"},
 		}
 		fnCall = g.CallFunction{name, params}
-		tree = fnCall.Ast()
+		tree = fnCall.Statement()
 	})
 
 	Context("Ast()", func() {

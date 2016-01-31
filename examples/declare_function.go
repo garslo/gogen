@@ -6,28 +6,24 @@ import (
 )
 
 func main() {
-	fooFuncParamName := "x"
-	fooFunc := Function{
-		Name: "foo",
+	FmtPrintln := Functor{Dotted{Var{"fmt"}, "Println"}}
+	fooParamName := "x"
+	Foo := Function{
+		Name: "Foo",
 		Parameters: Types{
 			Type{
-				Name:     fooFuncParamName,
+				Name:     fooParamName,
 				TypeName: StringT,
 			},
 		},
 		Body: []Statement{
-			CallFunction{
-				Func: Dotted{Pkg(Fmt), "Println"},
-				Params: []Expression{
-					Var{fooFuncParamName},
-				},
-			},
+			FmtPrintln.Call(Var{fooParamName}),
 		},
 	}
 	toPrint := Var{"y"}
 	pkg := Package{Name: "main"}
 	pkg.Declare(Import{Fmt})
-	pkg.Declare(fooFunc)
+	pkg.Declare(Foo)
 	pkg.Declare(Function{
 		Name: "main",
 		Body: []Statement{
@@ -35,10 +31,7 @@ func main() {
 				toPrint,
 				String("i'm being printed from a code-genned function"),
 			},
-			CallFunction{
-				Func:   Var{fooFunc.Name},
-				Params: []Expression{toPrint},
-			},
+			Foo.Call(toPrint),
 		},
 	})
 	pkg.WriteTo(os.Stdout)

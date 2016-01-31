@@ -18,7 +18,7 @@ var _ = Describe("Var", func() {
 
 	BeforeEach(func() {
 		v = g.Var{name}
-		tree = v.Ast()
+		tree = v.Expression()
 	})
 
 	Context("ast", func() {

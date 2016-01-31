@@ -9,10 +9,10 @@ type For struct {
 	Body      []Statement
 }
 
-func (me For) Ast() ast.Stmt {
+func (me For) Statement() ast.Stmt {
 	body := make([]ast.Stmt, len(me.Body))
 	for i, bodyPart := range me.Body {
-		body[i] = bodyPart.Ast()
+		body[i] = bodyPart.Statement()
 	}
 	var (
 		init ast.Stmt
@@ -20,13 +20,13 @@ func (me For) Ast() ast.Stmt {
 		post ast.Stmt
 	)
 	if me.Init != nil {
-		init = me.Init.Ast()
+		init = me.Init.Statement()
 	}
 	if me.Condition != nil {
-		cond = me.Condition.Ast()
+		cond = me.Condition.Expression()
 	}
 	if me.Post != nil {
-		post = me.Post.Ast()
+		post = me.Post.Statement()
 	}
 
 	return &ast.ForStmt{

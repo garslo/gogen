@@ -10,7 +10,7 @@ type Declare struct {
 	TypeName string
 }
 
-func (me Declare) Ast() ast.Stmt {
+func (me Declare) Statement() ast.Stmt {
 	return &ast.DeclStmt{
 		Decl: &ast.GenDecl{
 			Tok: token.VAR,

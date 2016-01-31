@@ -9,9 +9,9 @@ type Increment struct {
 	Value Expression
 }
 
-func (me Increment) Ast() ast.Stmt {
+func (me Increment) Statement() ast.Stmt {
 	return &ast.IncDecStmt{
-		X:   me.Value.Ast(),
+		X:   me.Value.Expression(),
 		Tok: token.INC,
 	}
 }
@@ -20,9 +20,9 @@ type Decrement struct {
 	Value Expression
 }
 
-func (me Decrement) Ast() ast.Stmt {
+func (me Decrement) Statement() ast.Stmt {
 	return &ast.IncDecStmt{
-		X:   me.Value.Ast(),
+		X:   me.Value.Expression(),
 		Tok: token.DEC,
 	}
 }
@@ -31,9 +31,9 @@ type Not struct {
 	Value Expression
 }
 
-func (me Not) Ast() ast.Expr {
+func (me Not) Statement() ast.Expr {
 	return &ast.UnaryExpr{
-		X:  me.Value.Ast(),
+		X:  me.Value.Expression(),
 		Op: token.NOT,
 	}
 }

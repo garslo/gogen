@@ -10,10 +10,10 @@ type Assign struct {
 	Rhs Expression
 }
 
-func (me Assign) Ast() ast.Stmt {
+func (me Assign) Statement() ast.Stmt {
 	return &ast.AssignStmt{
 		Tok: token.ASSIGN,
-		Lhs: []ast.Expr{me.Lhs.Ast()},
-		Rhs: []ast.Expr{me.Rhs.Ast()},
+		Lhs: []ast.Expr{me.Lhs.Expression()},
+		Rhs: []ast.Expr{me.Rhs.Expression()},
 	}
 }

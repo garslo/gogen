@@ -8,20 +8,20 @@ type If struct {
 	Body      []Statement
 }
 
-func (me If) Ast() ast.Stmt {
+func (me If) Statement() ast.Stmt {
 	var (
 		init ast.Stmt
 	)
 	if me.Init != nil {
-		init = me.Init.Ast()
+		init = me.Init.Statement()
 	}
 	body := make([]ast.Stmt, len(me.Body))
 	for j, stmt := range me.Body {
-		body[j] = stmt.Ast()
+		body[j] = stmt.Statement()
 	}
 	return &ast.IfStmt{
 		Init: init,
-		Cond: me.Condition.Ast(),
+		Cond: me.Condition.Expression(),
 		Body: &ast.BlockStmt{
 			List: body,
 		},

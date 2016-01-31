@@ -23,7 +23,7 @@ func (me Receiver) Ast() *ast.FieldList {
 						},
 					},
 				},
-				Type: me.Type.Ast(),
+				Type: me.Type.Expression(),
 			},
 		},
 	}
@@ -37,7 +37,12 @@ type Function struct {
 	Body        []Statement
 }
 
-func (me Function) Ast() ast.Decl {
+func (me Function) Declare(pkg *Package) Function {
+	pkg.Declare(me)
+	return me
+}
+
+func (me Function) Declaration() ast.Decl {
 	paramFields := make([]*ast.Field, len(me.Parameters))
 	for j, param := range me.Parameters {
 		var names []*ast.Ident
@@ -82,7 +87,7 @@ func (me Function) Ast() ast.Decl {
 	}
 	stmts := make([]ast.Stmt, len(me.Body))
 	for j, stmt := range me.Body {
-		stmts[j] = stmt.Ast()
+		stmts[j] = stmt.Statement()
 	}
 	return &ast.FuncDecl{
 		Recv: me.Receiver.Ast(),
@@ -107,9 +112,12 @@ func (me Function) Ast() ast.Decl {
 	}
 }
 
-// Totally unhiegenic
-func (me *Function) UpdateReceiver(receiver Receiver) {
-	me.Receiver = receiver
+func (me Function) Call(params ...Expression) CallFunction {
+	// TODO: what if this is a method?
+	return CallFunction{
+		Func:   Var{me.Name},
+		Params: params,
+	}
 }
 
 type Functions []Function

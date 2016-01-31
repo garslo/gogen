@@ -10,7 +10,7 @@ type Import struct {
 	Name string
 }
 
-func (me Import) Ast() ast.Decl {
+func (me Import) Declaration() ast.Decl {
 	return &ast.GenDecl{
 		Tok: token.IMPORT,
 		Specs: []ast.Spec{

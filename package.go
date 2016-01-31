@@ -20,7 +20,7 @@ func (me *Package) Declare(decl Declaration) *Package {
 func (me *Package) Ast() ast.Node {
 	decls := make([]ast.Decl, len(me.Declarations))
 	for i, decl := range me.Declarations {
-		decls[i] = decl.Ast()
+		decls[i] = decl.Declaration()
 	}
 	return &ast.File{
 		Name: &ast.Ident{

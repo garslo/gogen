@@ -7,9 +7,9 @@ type Dotted struct {
 	Name     string
 }
 
-func (me Dotted) Ast() ast.Expr {
+func (me Dotted) Expression() ast.Expr {
 	return &ast.SelectorExpr{
-		X: me.Receiver.Ast(),
+		X: me.Receiver.Expression(),
 		Sel: &ast.Ident{
 			Name: me.Name,
 		},

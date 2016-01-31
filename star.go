@@ -6,8 +6,8 @@ type Star struct {
 	Value Expression
 }
 
-func (me Star) Ast() ast.Expr {
+func (me Star) Expression() ast.Expr {
 	return &ast.StarExpr{
-		X: me.Value.Ast(),
+		X: me.Value.Expression(),
 	}
 }

@@ -53,12 +53,13 @@ func (me Fields) Ast() *ast.FieldList {
 }
 
 type Struct struct {
-	Name    string
-	Fields  Fields
-	Methods Functions
+	Name        string
+	Fields      Fields
+	Methods     Functions
+	FieldValues map[string]Expression
 }
 
-func (me Struct) Ast() ast.Decl {
+func (me Struct) Declaration() ast.Decl {
 	return &ast.GenDecl{
 		Tok: token.TYPE,
 		Specs: []ast.Spec{
@@ -75,6 +76,35 @@ func (me Struct) Ast() ast.Decl {
 				},
 			},
 		},
+	}
+}
+
+func (me Struct) WithValues(vals map[string]Expression) Struct {
+	return Struct{
+		Name:        me.Name,
+		Fields:      me.Fields,
+		Methods:     me.Methods,
+		FieldValues: vals,
+	}
+}
+
+func (me Struct) Expression() ast.Expr {
+	elts := make([]ast.Expr, len(me.Fields))
+	for i, field := range me.Fields {
+		elts[i] = &ast.KeyValueExpr{
+			Key: &ast.Ident{
+				Name: field.Name,
+			},
+			Value: &ast.Ident{
+			//Value: me.FieldValues[field.Name].Expression(),
+			},
+		}
+	}
+	return &ast.CompositeLit{
+		Type: &ast.Ident{
+			Name: me.Name,
+		},
+		Elts: elts,
 	}
 }
 

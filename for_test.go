@@ -17,7 +17,7 @@ var _ = Describe("For", func() {
 
 	BeforeEach(func() {
 		forStatement = g.For{}
-		tree = forStatement.Ast()
+		tree = forStatement.Statement()
 	})
 
 	Context("Ast()", func() {

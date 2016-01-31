@@ -21,7 +21,7 @@ var _ = Describe("DeclareAndAssign", func() {
 		lhs = g.Var{"x"}
 		rhs = g.Var{"1"}
 		declAndAssign = g.DeclareAndAssign{lhs, rhs}
-		tree = declAndAssign.Ast()
+		tree = declAndAssign.Statement()
 	})
 
 	Context("Ast()", func() {

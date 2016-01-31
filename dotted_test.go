@@ -21,7 +21,7 @@ var _ = Describe("Dotted", func() {
 		receiver = g.Var{"receiver"}
 		name = "somename"
 		dot = g.Dotted{receiver, name}
-		tree = dot.Ast()
+		tree = dot.Expression()
 	})
 
 	Context("Ast()", func() {

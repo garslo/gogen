@@ -22,7 +22,7 @@ var _ = Describe("Assign", func() {
 		lhs = g.Var{"x"}
 		rhs = g.Var{"1"}
 		assign = g.Assign{lhs, rhs}
-		tree = assign.Ast()
+		tree = assign.Statement()
 	})
 
 	Context("Ast()", func() {

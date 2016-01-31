@@ -20,7 +20,7 @@ var _ = Describe("Import", func() {
 	BeforeEach(func() {
 		name = "someimport"
 		imp = g.Import{name}
-		tree = imp.Ast()
+		tree = imp.Declaration()
 	})
 
 	Context("Ast()", func() {

@@ -10,11 +10,11 @@ type LessThan struct {
 	Rhs Expression
 }
 
-func (me LessThan) Ast() ast.Expr {
+func (me LessThan) Expression() ast.Expr {
 	return &ast.BinaryExpr{
 		Op: token.LSS,
-		X:  me.Lhs.Ast(),
-		Y:  me.Rhs.Ast(),
+		X:  me.Lhs.Expression(),
+		Y:  me.Rhs.Expression(),
 	}
 }
 
@@ -23,11 +23,11 @@ type LessThanOrEqual struct {
 	Rhs Expression
 }
 
-func (me LessThanOrEqual) Ast() ast.Expr {
+func (me LessThanOrEqual) Expression() ast.Expr {
 	return &ast.BinaryExpr{
 		Op: token.LEQ,
-		X:  me.Lhs.Ast(),
-		Y:  me.Rhs.Ast(),
+		X:  me.Lhs.Expression(),
+		Y:  me.Rhs.Expression(),
 	}
 }
 
@@ -36,11 +36,11 @@ type GreaterThan struct {
 	Rhs Expression
 }
 
-func (me GreaterThan) Ast() ast.Expr {
+func (me GreaterThan) Expression() ast.Expr {
 	return &ast.BinaryExpr{
 		Op: token.GTR,
-		X:  me.Lhs.Ast(),
-		Y:  me.Rhs.Ast(),
+		X:  me.Lhs.Expression(),
+		Y:  me.Rhs.Expression(),
 	}
 }
 
@@ -49,11 +49,11 @@ type GreaterThanOrEqual struct {
 	Rhs Expression
 }
 
-func (me GreaterThanOrEqual) Ast() ast.Expr {
+func (me GreaterThanOrEqual) Expression() ast.Expr {
 	return &ast.BinaryExpr{
 		Op: token.GEQ,
-		X:  me.Lhs.Ast(),
-		Y:  me.Rhs.Ast(),
+		X:  me.Lhs.Expression(),
+		Y:  me.Rhs.Expression(),
 	}
 }
 
@@ -62,10 +62,10 @@ type Equals struct {
 	Rhs Expression
 }
 
-func (me Equals) Ast() ast.Expr {
+func (me Equals) Expression() ast.Expr {
 	return &ast.BinaryExpr{
 		Op: token.EQL,
-		X:  me.Lhs.Ast(),
-		Y:  me.Rhs.Ast(),
+		X:  me.Lhs.Expression(),
+		Y:  me.Rhs.Expression(),
 	}
 }

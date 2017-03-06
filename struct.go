@@ -16,7 +16,7 @@ func (me Field) Ast() *ast.Field {
 	if me.Tag != "" {
 		tag = &ast.BasicLit{
 			Kind:  token.STRING,
-			Value: me.Tag,
+			Value: "`" + me.Tag + "`",
 		}
 	}
 	names := []*ast.Ident{}

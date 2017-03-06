@@ -31,7 +31,7 @@ type Not struct {
 	Value Expression
 }
 
-func (me Not) Statement() ast.Expr {
+func (me Not) Expression() ast.Expr {
 	return &ast.UnaryExpr{
 		X:  me.Value.Expression(),
 		Op: token.NOT,

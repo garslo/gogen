@@ -69,3 +69,16 @@ func (me Equals) Expression() ast.Expr {
 		Y:  me.Rhs.Expression(),
 	}
 }
+
+type NotEqual struct {
+	Lhs Expression
+	Rhs Expression
+}
+
+func (me NotEqual) Expression() ast.Expr {
+	return &ast.BinaryExpr{
+		Op: token.NEQ,
+		X:  me.Lhs.Expression(),
+		Y:  me.Rhs.Expression(),
+	}
+}
